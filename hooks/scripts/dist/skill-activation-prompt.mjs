@@ -161,12 +161,16 @@ async function main() {
       process.exit(0);
     }
     const prompt = data.prompt.toLowerCase();
+    const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT || "";
     const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
     const homeDir = process.env.HOME || process.env.USERPROFILE || "";
+    const pluginRulesPath = pluginRoot ? join2(pluginRoot, "skills", "skill-rules.json") : "";
     const projectRulesPath = join2(projectDir, ".claude", "skills", "skill-rules.json");
     const globalRulesPath = join2(homeDir, ".claude", "skills", "skill-rules.json");
     let rulesPath = "";
-    if (existsSync2(projectRulesPath)) {
+    if (pluginRulesPath && existsSync2(pluginRulesPath)) {
+      rulesPath = pluginRulesPath;
+    } else if (existsSync2(projectRulesPath)) {
       rulesPath = projectRulesPath;
     } else if (existsSync2(globalRulesPath)) {
       rulesPath = globalRulesPath;

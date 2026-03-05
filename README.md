@@ -5,15 +5,23 @@ Engineering-grade Claude Code plugins for Samba TV. Provides 19 specialized agen
 ## Quick Start
 
 ```bash
-# Clone the repo
-git clone https://github.com/the-sid-dani/samba-claude-code-plugins.git
+# Install from marketplace
+claude plugin marketplace add the-sid-dani/samba-claude-code-plugins
+claude plugin install samba-claude-code-plugins@marketplace
 
-# Run setup (builds hooks, checks optional CLIs)
+# Build hooks (one-time setup)
+bash setup.sh
+```
+
+Or install manually:
+
+```bash
+git clone https://github.com/the-sid-dani/samba-claude-code-plugins.git
 cd samba-claude-code-plugins
 bash setup.sh
 ```
 
-Then open any project with Claude Code — the plugins activate automatically when this repo is configured as a plugin source.
+Then open any project with Claude Code -- the plugin activates automatically.
 
 ## What's Included
 
@@ -137,19 +145,22 @@ Without these, Tier 2 hooks simply pass through — no errors, no degradation.
 
 ```
 samba-claude-code-plugins/
-├── .claude/
-│   ├── agents/        # 19 agent definitions (.md + .json)
-│   ├── skills/        # 31 skills (SKILL.md per directory)
-│   │   └── skill-rules.json  # Activation triggers
-│   ├── hooks/         # 16 hooks
-│   │   ├── src/       # TypeScript source
-│   │   ├── dist/      # Compiled JS (pre-built)
-│   │   └── package.json
-│   ├── rules/         # 8 rule files
-│   └── settings.json  # Hook registrations
-├── .mcp.json          # MCP server config
-├── PLAN.md            # Implementation plan
-└── README.md          # This file
+├── .claude-plugin/
+│   └── plugin.json        # Plugin manifest
+├── agents/                # 19 agent definitions (.md with YAML frontmatter)
+├── skills/                # 31 skills (SKILL.md per directory)
+│   └── skill-rules.json   # Activation triggers
+├── hooks/
+│   ├── hooks.json         # Hook registrations (plugin format)
+│   └── scripts/           # Hook implementations
+│       ├── src/           # TypeScript source
+│       ├── dist/          # Compiled JS bundles (esbuild)
+│       ├── *.py           # Python hooks (stdlib only)
+│       └── package.json   # Build config
+├── rules/                 # 8 behavioral rule files
+├── .mcp.json              # MCP server config
+├── setup.sh               # One-command setup
+└── README.md
 ```
 
 ## Origin

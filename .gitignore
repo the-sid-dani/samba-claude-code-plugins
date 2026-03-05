@@ -1,2 +1,3 @@
 node_modules/
 .DS_Store
+hooks/scripts/node_modules/

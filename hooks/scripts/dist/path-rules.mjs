@@ -20,8 +20,11 @@ function getProjectDir() {
   return process.env.CLAUDE_PROJECT_DIR || process.cwd();
 }
 function loadSkillContent(skillName) {
+  const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT || "";
   const projectDir = getProjectDir();
-  const skillPath = join(projectDir, ".claude", "skills", skillName, "SKILL.md");
+  const pluginSkillPath = pluginRoot ? join(pluginRoot, "skills", skillName, "SKILL.md") : "";
+  const projectSkillPath = join(projectDir, ".claude", "skills", skillName, "SKILL.md");
+  const skillPath = pluginSkillPath && existsSync(pluginSkillPath) ? pluginSkillPath : projectSkillPath;
   if (!existsSync(skillPath)) return null;
   try {
     let content = readFileSync(skillPath, "utf-8");

@@ -50,8 +50,12 @@ function getProjectDir(): string {
 }
 
 function loadSkillContent(skillName: string): string | null {
+  // Try plugin root first, then project .claude/skills/
+  const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT || '';
   const projectDir = getProjectDir();
-  const skillPath = join(projectDir, '.claude', 'skills', skillName, 'SKILL.md');
+  const pluginSkillPath = pluginRoot ? join(pluginRoot, 'skills', skillName, 'SKILL.md') : '';
+  const projectSkillPath = join(projectDir, '.claude', 'skills', skillName, 'SKILL.md');
+  const skillPath = (pluginSkillPath && existsSync(pluginSkillPath)) ? pluginSkillPath : projectSkillPath;
 
   if (!existsSync(skillPath)) return null;
 

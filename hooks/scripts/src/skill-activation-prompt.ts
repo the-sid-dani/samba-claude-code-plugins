@@ -105,14 +105,18 @@ async function main() {
         }
         const prompt = data.prompt.toLowerCase();
 
-        // Load skill rules (try project first, then global)
+        // Load skill rules (try plugin root first, then project, then global)
+        const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT || '';
         const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
         const homeDir = process.env.HOME || process.env.USERPROFILE || '';
+        const pluginRulesPath = pluginRoot ? join(pluginRoot, 'skills', 'skill-rules.json') : '';
         const projectRulesPath = join(projectDir, '.claude', 'skills', 'skill-rules.json');
         const globalRulesPath = join(homeDir, '.claude', 'skills', 'skill-rules.json');
 
         let rulesPath = '';
-        if (existsSync(projectRulesPath)) {
+        if (pluginRulesPath && existsSync(pluginRulesPath)) {
+            rulesPath = pluginRulesPath;
+        } else if (existsSync(projectRulesPath)) {
             rulesPath = projectRulesPath;
         } else if (existsSync(globalRulesPath)) {
             rulesPath = globalRulesPath;

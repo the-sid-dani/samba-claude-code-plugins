@@ -1,7 +1,7 @@
 {
   "name": "samba-claude-code-plugins",
   "version": "1.0.0",
-  "description": "Engineering-grade Claude Code plugins for Samba TV. 19 agents, 31 skills, 16 hooks for software development workflows.",
+  "description": "Engineering-grade Claude Code plugins for Samba TV. 19 agents, 31 skills, and 16 hooks for software development workflows including TDD, code review, debugging, security, and release management.",
   "author": {
     "name": "Sid Dani",
     "url": "https://github.com/the-sid-dani"
@@ -17,6 +17,7 @@
     "refactoring",
     "debugging",
     "security",
-    "workflow"
+    "workflow",
+    "samba-tv"
   ]
 }

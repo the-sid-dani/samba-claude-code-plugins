@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-HOOKS_DIR="$SCRIPT_DIR/.claude/hooks"
+HOOKS_DIR="$SCRIPT_DIR/hooks/scripts"
 
 echo "=== Samba Claude Code Plugins Setup ==="
 echo ""
