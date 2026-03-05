@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    {
+      "name": "samba-claude-code-plugins",
+      "source": ".",
+      "description": "Engineering-grade Claude Code plugins for Samba TV. 19 agents, 31 skills, and 16 hooks for software development workflows."
+    }
+  ]
+}
